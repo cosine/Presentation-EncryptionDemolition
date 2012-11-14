@@ -1,0 +1,25 @@
+* Based on previous presentation: http://vimeo.com/23610092
+* John Downy's ChicagoRuby presentation: http://chicagoruby.org/videos/
+* Coursera free cryptography course: https://www.coursera.org/course/crypto
+
+Bitmaps:
+Start with normal bitmap.
+Find header size from bytes 11-14.  It was 0x36 or 54 for us.
+    cat sc.bmp | xxd | head
+Split header and data:
+    dd if=sc.bmp bs=54 count=1 of=sc.bmp.head
+    dd if=sc.bmp bs=54 skip=1 of=sc.bmp.data
+Encrypt data:
+    openssl enc -aes-128-ecb -in sc.bmp.data -out sc-ecb.bmp.data -nopad -e -k password
+    cat sc.bmp.head sc-ecb.bmp.data > sc-ecb.bmp
+    openssl enc -aes-128-cbc -in sc.bmp.data -out sc-cbc.bmp.data -nopad -e -k password
+    cat sc.bmp.head sc-cbc.bmp.data > sc-cbc.bmp
+
+Text Data;
+    ruby enc.rb aes-128-ecb password - "Hello to all... Hello to all... "
+    ruby enc.rb aes-128-cbc password - "Hello to all... Hello to all... "
+
+Lab Ideas:
+  * LAB 1: cracking English messages using the same keystream
+  * LAB 2: tampering AES-CBC encrypted data
+  * LAB 3: cracking key through time-based oracle
