@@ -1,0 +1,9 @@
+This project containts the presentation materials for my November 14,
+2012 talk at Software Craftsmanship McHenry County.
+
+If you are doing the lab exercises, you can use the pre-generated
+EncDemoLab-1.zip file provided (do not look at EncDemoLab-1-answers.zip)
+or generate a lab pack yourself:
+
+(1) Clone the repository: git clone https://github.com/cosine/Presentation-EncryptionDemolition.git
+(2) Run create_lab_pack:  ruby create_lab_pack.rb EncDemoLab 1 1

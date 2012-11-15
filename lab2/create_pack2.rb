@@ -54,7 +54,7 @@ $stderr.puts "Encryption Key: #{key.hexy}"
 $stderr.print "Answer Ciphertext: #{answer_iv.hexy} "
 $stderr.puts answer_ciphertext.hexy.scan(/.{1,32}/).join(" ")
 
-answer_ciphertext_hash = OpenSSL::Digest::SHA512.new.update(answer_ciphertext).hexdigest
+answer_ciphertext_hash = OpenSSL::Digest::SHA512.new.update(answer_iv + answer_ciphertext).hexdigest
 
 check_fd = IO.new(3, "w")
 check_fd.puts <<__EOF__
